@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: location-service
+  datasource:
+    url: jdbc:postgresql://test.elegant-designs.net:5432/shervin
+    username: shervin
+    initialization-mode: always
+  jpa:
+    properties:
+      hibernate:
+        default_schema: location_service
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    schemas: ${spring.jpa.properties.hibernate.default_schema}
+    baseline-on-migrate: true
+  messages:
+    basename: messages/messages
+  jackson:
+    default-property-inclusion: non_null
+#  profiles:
+#    include:
+#      - dev
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://test.elegant-designs.net:8761/eureka
+
+server:
+  forward-headers-strategy: framework
+
+endpoints:
+  google:
+    baseUrl: https://maps.googleapis.com/maps/api
+    apiKey: AIzaSyB7To7PUwX4MH4UsiQ1C4PWlhkqUB61ORg
+
+app:
+  host: http://localhost:8080
+  url: ${app.host}/${spring.application.name}
